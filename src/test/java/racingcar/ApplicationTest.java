@@ -13,20 +13,44 @@ class ApplicationTest extends NsTest {
     private static final int STOP = 3;
 
     @Test
-    void 기능_테스트() {
+    void basicfunc_test() {
         assertRandomNumberInRangeTest(
             () -> {
                 run("pobi,woni", "1");
-                assertThat(output()).contains("pobi : -", "woni : ", "최종 우승자 : pobi");
+                assertThat(output()).contains("pobi : -", "woni : ", "최종 우승자: pobi");
             },
             MOVING_FORWARD, STOP
         );
     }
 
     @Test
-    void 예외_테스트() {
+    void nameexception_test() {
         assertSimpleTest(() ->
             assertThatThrownBy(() -> runException("pobi,javaji", "1"))
+                .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void multiwinner_test() {
+        assertRandomNumberInRangeTest(() -> {
+            run("pobi,woni", "2");
+            assertThat(output()).contains("최종 우승자: pobi");
+        }, MOVING_FORWARD, STOP);
+    }
+
+    @Test
+    void movelogic_test() {
+        assertRandomNumberInRangeTest(() -> {
+            run("pobi,woni", "3");
+            assertThat(output()).contains("pobi : --", "woni : -", "최종 우승자: pobi");
+        }, MOVING_FORWARD, STOP, MOVING_FORWARD, STOP, MOVING_FORWARD, STOP);
+    }
+
+    @Test
+    void trycountexception_test() {
+        assertSimpleTest(() ->
+            assertThatThrownBy(() -> runException("pobi,woni", "0"))
                 .isInstanceOf(IllegalArgumentException.class)
         );
     }
