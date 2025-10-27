@@ -4,7 +4,6 @@ import camp.nextstep.edu.missionutils.Console;
 import racingcar.exception.ErrorMessage;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -16,7 +15,7 @@ public class InputView {
         validateInput(input);
         splitInput(input);
 
-        return Collections.singletonList(input);
+        return  splitInput(input);
 
     }
 
@@ -30,13 +29,14 @@ public class InputView {
     }
 
     //입력값 split
-    private static void splitInput(String obj) {
+    private static List<String> splitInput(String obj) {
 
         List<String> carNames = Arrays.stream(obj.split(","))
                 .map(String::trim)
                 .toList();
 
         wordCountCheck(carNames);
+        return carNames;
     }
 
     //입력값 검증
