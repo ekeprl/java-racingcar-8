@@ -34,17 +34,16 @@ public class RacingCar {
     }
 
 
-    /** 현재 이름 반환 */
     public String getName() {
         return name;
     }
 
-    /** 현재 위치 반환 */
+
     public int getPosition() {
         return position;
     }
 
-    /** 현재 자동차의 상태(이름 + 위치)를 문자열로 반환 (디버깅용) */
+    // 결과 확인
     @Override
     public String toString() {
         return name + " : " + "-".repeat(position);
